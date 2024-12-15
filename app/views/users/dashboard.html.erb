@@ -1,0 +1,26 @@
+<h1>Manu</h1>
+
+<p> Wybierz jedną z opcji:</p>
+
+<div>
+  <%= link_to "Recipes", recipes_path, class: "button" %><br>
+  <%= link_to "Categories", categories_path, class: "button" %><br>
+  <%= link_to "Ingredients", ingredients_path, class: "button" %><br>
+</div>
+
+<style>
+  .button{
+      display: inline-block;
+      margin: 10px 0;
+      padding: 10px 20px;
+      color: #B00100;
+      background-color: aqua;
+      text-decoration: none;
+      border-radius: 10px;
+  }
+
+  .button:hover{
+      background-color: chartreuse;
+  }
+
+</style>

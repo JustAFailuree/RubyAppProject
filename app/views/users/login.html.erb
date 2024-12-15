@@ -1,0 +1,38 @@
+<h1>Logowanie</h1>
+
+<p>
+  <%= link_to "Rejestracja", register_path %>
+</p>
+
+<%= form_with url: '/login', method: :post, data: {turbo: false} do |f| %>
+  <div>
+    <%= f.label :email, "E-mail" %><br>
+    <%= f.email_field :email, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :password, "Hasło" %><br>
+    <%= f.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= f.submit "Zaloguj się", class: "button" %>
+  </div>
+<% end %>
+
+<style>
+    .button{
+        display: inline-block;
+        margin: 10px 0;
+        padding: 10px 20px;
+        color: #B00100;
+        background-color: aqua;
+        text-decoration: none;
+        border-radius: 10px;
+    }
+
+    .button:hover{
+        background-color: chartreuse;
+    }
+
+</style>
