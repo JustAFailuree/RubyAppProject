@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[ show edit update destroy ]
+  before_action :require_login, only: [:new, :create]
 
   # GET /recipes or /recipes.json
   def index
@@ -13,16 +14,18 @@ class RecipesController < ApplicationController
   # GET /recipes/new
   def new
     @recipe = Recipe.new
+    @ingredients = Ingredient.all
   end
 
   # GET /recipes/1/edit
   def edit
+    @ingredients = Ingredient.all
   end
 
   # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
-
+    @recipe.user_id = current_user.id
     respond_to do |format|
       if @recipe.save
         format.html { redirect_to @recipe, notice: "Recipe was successfully created." }
@@ -65,6 +68,7 @@ class RecipesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def recipe_params
-      params.require(:recipe).permit(:title, :instructions, :prep_time, :servings, :user_id)
+      params.require(:recipe).permit(:title, :instructions, :prep_time, :servings, ingredient_ids: [], category_ids: [])
     end
+
 end

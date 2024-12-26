@@ -1,10 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<div class="container my-5">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="my-4"><%= @category.name %></h1>
+    </div>
+    <div class="card-body">
+      <p>Opis: <%= @category.description %></p>
+    </div>
 
-<%= render @category %>
-
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %> |
-  <%= link_to "Back to categories", categories_path %>
-
-  <%= button_to "Destroy this category", @category, method: :delete %>
+    <div class="card-footer text-center">
+      <%= link_to "Edytuj Kategorie", edit_category_path(@category),class: "btn" %>
+      <%= link_to "Powrót do Kategori", categories_path, class: "btn" %>
+      <%= button_to "Usuń Kategorie", @category, method: :delete, class: "btn" %>
+    </div>
+  </div>
 </div>

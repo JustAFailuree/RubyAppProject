@@ -1,42 +1,108 @@
-<%= form_with(model: recipe) do |form| %>
-  <% if recipe.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Przepisy</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-      <ul>
-        <% recipe.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="Dashboard">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Przepisy", recipes_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Kategorie", categories_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Składniki", ingredients_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Wyloguj się", logout_path, method: :delete, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
     </div>
-  <% end %>
+  </nav>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+  <section class="content-section">
+    <div class="card-content">
+      <h1 class="mb-4">Dodaj Przepis</h1>
 
-  <div>
-    <%= form.label :instructions, style: "display: block" %>
-    <%= form.text_area :instructions %>
-  </div>
+      <%= form_with(model: recipe, class: "needs-validation", novalidate: true) do |form| %>
+        <% if recipe.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h4>
+            <ul>
+              <% recipe.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <div>
-    <%= form.label :prep_time, style: "display: block" %>
-    <%= form.number_field :prep_time %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Tytuł, class: "form-label" %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= form.label :servings, style: "display: block" %>
-    <%= form.number_field :servings %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Przygotowanie, class: "form-label" %>
+          <%= form.text_area :instructions, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Czas, class: "form-label" %>
+          <%= form.number_field :prep_time, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+        <div class="mb-3">
+          <%= form.label :Porcje, class: "form-label" %>
+          <%= form.number_field :servings, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <h3>Składniki</h3>
+          <% Ingredient.all.each do |ingredient| %>
+            <div class="form-check">
+              <%= check_box_tag "recipe[ingredient_ids][]", ingredient.id, @recipe.ingredients.include?(ingredient), class: "form-check-input" %>
+              <%= label_tag "recipe_ingredient_#{ingredient.id}", ingredient.name, class: "form-check-label" %>
+            </div>
+          <% end %>
+          <%= hidden_field_tag "recipe[ingredient_ids][]", nil %>
+        </div>
+
+        <div class="mb-3">
+          <h3>Kategorie</h3>
+          <% Category.all.each do |category| %>
+            <div class="form-check">
+              <%= check_box_tag "recipe[category_ids][]", category.id, @recipe.categories.include?(category), class: "form-check-input" %>
+              <%= label_tag "recipe_category_#{category.id}", category.name, class: "form-check-label" %>
+            </div>
+          <% end %>
+          <%= hidden_field_tag "recipe[category_ids][]", nil %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.submit "Dodaj Przepis", class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+
+  <footer>
+    <p>Moja Strona &copy; 2024. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</div>
+</body>
+</html>

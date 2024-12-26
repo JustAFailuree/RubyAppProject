@@ -1,32 +1,75 @@
-<%= form_with(model: category) do |form| %>
-  <% if category.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-      <ul>
-        <% category.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="Dashboard">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Przepisy", recipes_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Kategorie", categories_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Składniki", ingredients_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Wyloguj się", logout_path, method: :delete, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
     </div>
-  <% end %>
+  </nav>
+  <section class="content-section">
+    <div class="card-content">
+      <h1 class="mb-4">Dodaj Kategorie</h1>
+      <%= form_with(model: category) do |form| %>
+        <% if category.errors.any? %>
+          <div class="alert alert-danger">
+            <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+            <ul>
+              <% category.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Nazwa, class: "form-label" %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= form.label :priority, style: "display: block" %>
-    <%= form.number_field :priority %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Opis, class: "form-label" %>
+          <%= form.text_area :description, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+        <div class="mb-3">
+          <%= form.submit "Dodaj Kategorie", class: "btn"%>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+
+  <footer>
+    <p>Moja Strona &copy; 2024. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</div>
+</body>
+</html>

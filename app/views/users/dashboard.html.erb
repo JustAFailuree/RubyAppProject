@@ -1,26 +1,71 @@
-<h1>Manu</h1>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-<p> Wybierz jedną z opcji:</p>
+<div class="Dashboard">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Przepisy", recipes_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Kategorie", categories_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Składniki", ingredients_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Wyloguj się", logout_path, method: :delete, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<div>
-  <%= link_to "Recipes", recipes_path, class: "button" %><br>
-  <%= link_to "Categories", categories_path, class: "button" %><br>
-  <%= link_to "Ingredients", ingredients_path, class: "button" %><br>
+  <section class="content-section">
+    <div>
+      <h1>
+        Witaj na mojej stronie.
+      </h1>
+    </div>
+    <div class="image-container">
+      <%= image_tag "ob1.png", alt: "obraz", class: "centered-image" %>
+    </div>
+
+    <div class="text-container">
+      <p>
+        Duis vestibulum lobortis risus nec congue. Vestibulum nec mi at leo elementum molestie.
+        Proin venenatis convallis elit, quis mattis lectus lobortis sit amet. Proin semper hendrerit justo,
+        vel posuere velit consectetur vel. Nunc nec hendrerit neque. Vestibulum suscipit, massa vitae
+        iaculis ullamcorper, arcu lacus tempus est, id interdum eros lacus eu sapien. Maecenas feugiat
+        augue vitae ipsum vulputate dictum. Vestibulum suscipit elementum urna a mattis. Sed sollicitudin
+        massa nec posuere ullamcorper. Aenean eget tristique felis. Nulla facilisis quam nec lacus fringilla,
+        et varius purus posuere. Aenean efficitur lectus quis dui accumsan placerat.
+
+        Sed a purus eleifend, egestas dolor sed, molestie metus. Fusce hendrerit ornare
+        elit, eu mattis dui. Curabitur vulputate nisl nisl, non interdum metus tempus quis.
+        Donec sollicitudin in velit et ullamcorper. Cras faucibus dui nibh, a luctus massa
+        tempor eget. Sed quis auctor dolor, ac imperdiet urna. Mauris vulputate ipsum a lectus faucibus consequat.
+      </p>
+    </div>
+  </section>
+
+
+  <footer>
+    <p>Moja Strona &copy; 2024. Wszelkie prawa zastrzeżone.</p>
+  </footer>
 </div>
-
-<style>
-  .button{
-      display: inline-block;
-      margin: 10px 0;
-      padding: 10px 20px;
-      color: #B00100;
-      background-color: aqua;
-      text-decoration: none;
-      border-radius: 10px;
-  }
-
-  .button:hover{
-      background-color: chartreuse;
-  }
-
-</style>
+</body>
+</html>

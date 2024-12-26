@@ -1,32 +1,81 @@
-<%= form_with(model: ingredient) do |form| %>
-  <% if ingredient.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-      <ul>
-        <% ingredient.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="Dashboard">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Przepisy", recipes_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Kategorie", categories_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Składniki", ingredients_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Wyloguj się", logout_path, method: :delete, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
     </div>
-  <% end %>
+  </nav>
+  <section class="content-section">
+    <div class="card-content">
+      <h1 class="mb-4">Dodaj Składnik</h1>
+      <%= form_with(model: ingredient) do |form| %>
+        <% if ingredient.errors.any? %>
+          <div class="alert alert-danger">
+            <h2><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+            <ul>
+              <% ingredient.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <div>
-    <%= form.label :calories, style: "display: block" %>
-    <%= form.number_field :calories %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Nazwa, class: "form-label"%>
+          <%= form.text_field :name, class: "form-control"%>
+        </div>
 
-  <div>
-    <%= form.label :unit, style: "display: block" %>
-    <%= form.text_field :unit %>
-  </div>
+        <div class="mb-3">
+          <%= form.label :Kalorie, class: "form-label" %>
+          <%= form.number_field :calories, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+        <div class="mb-3">
+          <%= form.label :Jednostka, class: "form-label" %>
+          <%= form.text_field :unit, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.submit "Dodaj Składnik", class: "btn"%>
+        </div>
+      <% end %>
+
+    </div>
+  </section>
+
+
+  <footer>
+    <p>Moja Strona &copy; 2024. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</div>
+</body>
+</html>

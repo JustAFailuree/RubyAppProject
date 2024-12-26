@@ -13,12 +13,22 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  get '/login', to: 'users#dashboard'
-  post '/login', to: 'users#dashboard'
+  post '/register', to: 'users#register'
   get '/register', to: 'users#register'
-  post '/register', to: 'users#create_user'
-  get '/dashboard', to: 'users#dashboard'
+
+  get '/login', to: 'users#login', as: 'login'
+  post '/login', to: 'users#login'
+
+  get '/dashboard', to: 'users#dashboard', as: 'dashboard'
   post '/dashboard', to: 'users#dashboard'
+
+  delete '/logout', to: 'users#destroy', as: :logout
+
+
+
+
+
+
 
   # Defines the root path route ("/")
    root "users#login"

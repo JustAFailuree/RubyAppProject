@@ -1,10 +1,46 @@
-<p style="color: green"><%= notice %></p>
+<div class="container my-5">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="my-4"><%= @recipe.title %></h1>
+    </div>
+    <div class="card-body">
 
-<%= render @recipe %>
+      <p><strong>Przygotowanie:</strong> <%= @recipe.instructions %></p>
+      <p><strong>Czas:</strong> <%= @recipe.prep_time %> minutes</p>
+      <p><strong>Porcje:</strong> <%= @recipe.servings %></p>
 
-<div>
-  <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
-  <%= link_to "Back to recipes", recipes_path %>
+      <% if @recipe.ingredients.any? %>
+        <h3 class="mt-4">Składniki:</h3>
+        <ul class="list-group">
+          <% @recipe.ingredients.each do |ingredient| %>
+            <li class="list-group-item">
+              <span class="badge bg-primary rounded-pill">Składniki</span> <%= ingredient.name %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>Nie ma dodanych składników do tego przepisu.</p>
+      <% end %>
 
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+      <% if @recipe.categories.any? %>
+        <h3 class="mt-4">Kategorie:</h3>
+        <ul class="list-group">
+          <% @recipe.categories.each do |category| %>
+            <li class="list-group-item">
+              <span class="badge bg-success rounded-pill">Kategorie</span> <%= category.name %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>Ten przepis nie posiada kategori.</p>
+      <% end %>
+
+    </div>
+
+    <div class="card-footer text-center">
+      <%= link_to "Edytuj ten przepis", edit_recipe_path(@recipe), class: "btn" %>
+      <%= link_to "Powrót do przepisów", recipes_path, class: "btn" %>
+      <%= button_to "Usuń ten przepis", @recipe, method: :delete, class: "btn" %>
+    </div>
+  </div>
 </div>

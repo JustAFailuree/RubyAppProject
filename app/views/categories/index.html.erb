@@ -1,16 +1,59 @@
-<p style="color: green"><%= notice %></p>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-<% content_for :title, "Categories" %>
+<div class="Dashboard">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Przepisy", recipes_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Kategorie", categories_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Składniki", ingredients_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Wyloguj się", logout_path, method: :delete, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="content-section">
+    <h1>Kategorie</h1>
 
-<h1>Categories</h1>
+    <div class="row">
+      <% @categories.each do |category| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <h5 class="card-title"><%= category.name %></h5>
+            <p>Name: <%= category.description %></p>
+            <%= link_to "Pokaż Katregorie", category, class: "btn"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= link_to "Nowa Kategoria", new_category_path, class: "btn"%>
+  </section>
 
-<div id="categories">
-  <% @categories.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
-  <% end %>
+
+  <footer>
+    <p>Moja Strona &copy; 2024. Wszelkie prawa zastrzeżone.</p>
+  </footer>
 </div>
-
-<%= link_to "New category", new_category_path %>
+</body>
+</html>
