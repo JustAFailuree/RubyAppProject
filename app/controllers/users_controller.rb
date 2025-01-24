@@ -54,9 +54,8 @@ class UsersController < ApplicationController
     if request.post?
       user = User.find_by(email: params[:email])
 
-      # Sprawdzenie poprawności hasła
       if user && user.password == params[:password]
-        session[:user_id] = user.id # Zapisanie user_id w sesji
+        session[:user_id] = user.id 
         redirect_to dashboard_path, notice: "Zalogowano pomyślnie."
       else
         flash.now[:alert] = "Nieprawidłowy e-mail lub hasło."
@@ -68,8 +67,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    reset_session # Usuwa sesję użytkownika
-    redirect_to root_path, notice: "Successfully logged out." # Przekierowanie po wylogowaniu
+    reset_session 
+    redirect_to root_path, notice: "Successfully logged out." 
     end
 
 
@@ -87,7 +86,7 @@ end
       @user = User.new(user_params)
 
       if @user.save
-        session[:user_id] = user.id
+        session[:user_id] = @user.id
         redirect_to login_path, notice: "Rejestracja zakończona sukcesem! Zaloguj się."
       else
         render :register, status: :unprocessable_entity
